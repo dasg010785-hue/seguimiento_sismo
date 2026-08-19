@@ -1,0 +1,2267 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Metodología y Dashboard | Seguridad y Salud en el Trabajo</title>
+
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    /* =========================================================
+       VARIABLES
+    ========================================================= */
+
+    :root {
+      --navy-900: #122236;
+      --navy-800: #1E304B;
+      --navy-700: #28405F;
+
+      --wine: #6F181E;
+      --wine-dark: #500F13;
+
+      --green: #359956;
+      --green-light: #42B865;
+
+      --gold: #C99A3F;
+
+      --bg-light: #F7F4F1;
+      --bg-soft: #FDF1EF;
+
+      --line: #E7E1D9;
+
+      --ink: #182233;
+      --text: #5B6472;
+
+      --white: #FFFFFF;
+    }
+
+
+    /* =========================================================
+       RESET
+    ========================================================= */
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg-light);
+      color: var(--ink);
+
+      font-family: 'Inter', sans-serif;
+
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+
+    /* =========================================================
+       SCROLL PROGRESS
+    ========================================================= */
+
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+
+      width: 0%;
+      height: 3px;
+
+      background: linear-gradient(
+        90deg,
+        var(--green),
+        var(--wine)
+      );
+
+      z-index: 1000;
+
+      transition: width .1s linear;
+    }
+
+
+    /* =========================================================
+       HEADER
+    ========================================================= */
+
+    header {
+      position: sticky;
+      top: 0;
+
+      z-index: 100;
+
+      height: 92px;
+
+      background: var(--navy-800);
+
+      transition:
+        background .3s ease,
+        box-shadow .3s ease;
+    }
+
+    header.is-scrolled {
+      background: rgba(18, 34, 54, .94);
+
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+
+      box-shadow:
+        0 8px 28px rgba(0, 0, 0, .18);
+    }
+
+    .header-inner {
+      width: 100%;
+      max-width: 1360px;
+
+      height: 100%;
+
+      margin: 0 auto;
+
+      padding: 0 32px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 30px;
+    }
+
+
+    /* =========================================================
+       LOGO
+    ========================================================= */
+
+    .brand {
+      display: flex;
+      align-items: center;
+
+      flex-shrink: 0;
+    }
+
+    .brand-logo {
+      display: block;
+
+      width: auto;
+      height: 54px;
+
+      object-fit: contain;
+    }
+
+
+    /* =========================================================
+       NAVIGATION
+    ========================================================= */
+
+    nav.tabs {
+      display: flex;
+      align-items: center;
+
+      gap: 8px;
+
+      margin-left: auto;
+    }
+
+    nav.tabs a {
+      position: relative;
+
+      padding: 10px 17px;
+
+      border-radius: 9px;
+
+      color: rgba(255,255,255,.68);
+
+      font-size: 13.5px;
+      font-weight: 600;
+
+      transition:
+        color .25s ease,
+        background .25s ease,
+        transform .25s ease;
+    }
+
+    nav.tabs a:hover {
+      color: #fff;
+
+      background: rgba(255,255,255,.08);
+
+      transform: translateY(-1px);
+    }
+
+    nav.tabs a.active {
+      color: #fff;
+
+      background: linear-gradient(
+        90deg,
+        var(--green),
+        var(--green-light)
+      );
+
+      box-shadow:
+        0 5px 15px rgba(53,153,86,.28);
+    }
+
+
+    /* =========================================================
+       MOBILE MENU
+    ========================================================= */
+
+    .menu-toggle {
+      display: none;
+
+      width: 40px;
+      height: 40px;
+
+      align-items: center;
+      justify-content: center;
+
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 50%;
+
+      background: rgba(255,255,255,.10);
+
+      color: #fff;
+
+      cursor: pointer;
+    }
+
+
+    /* =========================================================
+       HERO
+    ========================================================= */
+
+    .hero {
+      position: relative;
+
+      min-height: 540px;
+
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          135deg,
+          #122236 0%,
+          #1E304B 55%,
+          #28405F 100%
+        );
+
+      display: flex;
+      align-items: center;
+    }
+
+    .hero::before {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      background:
+        radial-gradient(
+          600px 350px at 90% 10%,
+          rgba(53,153,86,.30),
+          transparent 65%
+        ),
+
+        radial-gradient(
+          500px 320px at 5% 95%,
+          rgba(111,24,30,.32),
+          transparent 65%
+        );
+    }
+
+    .hero::after {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      background-image:
+        radial-gradient(
+          1px 1px at 20px 30px,
+          rgba(255,255,255,.10) 1px,
+          transparent 0
+        ),
+        radial-gradient(
+          1px 1px at 90px 80px,
+          rgba(255,255,255,.08) 1px,
+          transparent 0
+        ),
+        radial-gradient(
+          1px 1px at 150px 40px,
+          rgba(255,255,255,.10) 1px,
+          transparent 0
+        ),
+        radial-gradient(
+          1px 1px at 220px 110px,
+          rgba(255,255,255,.07) 1px,
+          transparent 0
+        );
+
+      background-size: 240px 140px;
+
+      opacity: .65;
+
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+
+      width: 100%;
+      max-width: 1180px;
+
+      margin: 0 auto;
+
+      padding: 80px 32px;
+    }
+
+
+    /* =========================================================
+       HERO EYEBROW
+    ========================================================= */
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+
+      margin-bottom: 22px;
+
+      padding: 7px 14px;
+
+      border: 1px solid rgba(53,153,86,.38);
+
+      border-radius: 999px;
+
+      background: rgba(53,153,86,.12);
+
+      color: #65C77E;
+
+      font-family: 'IBM Plex Mono', monospace;
+
+      font-size: 11px;
+      font-weight: 600;
+
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow-arrow {
+      font-size: 15px;
+    }
+
+
+    /* =========================================================
+       HERO TEXT
+    ========================================================= */
+
+    .hero h1 {
+      max-width: 850px;
+
+      margin: 0;
+
+      color: #fff;
+
+      font-family: 'Plus Jakarta Sans', sans-serif;
+
+      font-size: clamp(
+        34px,
+        5vw,
+        58px
+      );
+
+      line-height: 1.05;
+
+      font-weight: 800;
+
+      letter-spacing: -.025em;
+    }
+
+    .hero-sub {
+      max-width: 650px;
+
+      margin: 24px 0 0;
+
+      color: rgba(255,255,255,.68);
+
+      font-size: 16px;
+
+      line-height: 1.7;
+    }
+
+
+    /* =========================================================
+       BUTTONS
+    ========================================================= */
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 14px;
+
+      margin-top: 34px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+
+      min-height: 48px;
+
+      padding: 6px 7px 6px 22px;
+
+      border-radius: 999px;
+
+      border: 1px solid transparent;
+
+      font-size: 14px;
+      font-weight: 700;
+
+      cursor: pointer;
+
+      transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-solid {
+      color: var(--navy-900);
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--green),
+          var(--green-light)
+        );
+
+      box-shadow:
+        0 10px 25px rgba(53,153,86,.25);
+    }
+
+    .btn-solid:hover {
+      box-shadow:
+        0 14px 30px rgba(53,153,86,.38);
+    }
+
+    .btn-outline {
+      color: #fff;
+
+      background: rgba(255,255,255,.04);
+
+      border-color: rgba(255,255,255,.30);
+    }
+
+    .btn-outline:hover {
+      border-color: rgba(255,255,255,.60);
+
+      background: rgba(255,255,255,.08);
+    }
+
+    .btn-arrow-circle {
+      width: 32px;
+      height: 32px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      flex-shrink: 0;
+
+      border-radius: 50%;
+
+      transition: transform .35s ease;
+    }
+
+    .btn:hover .btn-arrow-circle {
+      transform: rotate(-45deg);
+    }
+
+    .btn-solid .btn-arrow-circle {
+      background: #fff;
+
+      color: var(--green);
+    }
+
+    .btn-outline .btn-arrow-circle {
+      background: rgba(255,255,255,.13);
+
+      border: 1px solid rgba(255,255,255,.28);
+
+      color: #fff;
+    }
+
+
+    /* =========================================================
+       GENERAL SECTION
+    ========================================================= */
+
+    section {
+      width: 100%;
+
+      max-width: 1180px;
+
+      margin: 0 auto;
+
+      padding: 86px 32px;
+
+      scroll-margin-top: 100px;
+    }
+
+    .section-header {
+      max-width: 720px;
+
+      margin: 0 auto 46px;
+
+      text-align: center;
+    }
+
+    .section-label {
+      display: inline-block;
+
+      margin-bottom: 13px;
+
+      color: var(--wine);
+
+      font-family: 'IBM Plex Mono', monospace;
+
+      font-size: 11px;
+      font-weight: 600;
+
+      letter-spacing: .10em;
+
+      text-transform: uppercase;
+    }
+
+    .section-header h2 {
+      margin: 0;
+
+      color: var(--ink);
+
+      font-family: 'Plus Jakarta Sans', sans-serif;
+
+      font-size: clamp(
+        27px,
+        3.5vw,
+        38px
+      );
+
+      line-height: 1.1;
+
+      font-weight: 800;
+
+      letter-spacing: -.02em;
+    }
+
+    .section-header p {
+      margin: 16px auto 0;
+
+      max-width: 650px;
+
+      color: var(--text);
+
+      font-size: 15px;
+
+      line-height: 1.7;
+    }
+
+
+    /* =========================================================
+       METODOLOGÍA
+    ========================================================= */
+
+    #metodologia {
+      background: var(--bg-light);
+    }
+
+    .method-intro {
+      position: relative;
+
+      padding: 34px 38px;
+
+      margin-bottom: 34px;
+
+      border-radius: 18px;
+
+      overflow: hidden;
+
+      background: var(--navy-800);
+
+      box-shadow:
+        0 20px 50px rgba(18,34,54,.12);
+    }
+
+    .method-intro::before {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      background:
+        radial-gradient(
+          500px 260px at 90% 0%,
+          rgba(53,153,86,.24),
+          transparent 65%
+        );
+    }
+
+    .method-intro-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .method-intro h3 {
+      margin: 0 0 13px;
+
+      color: #fff;
+
+      font-family: 'Plus Jakarta Sans', sans-serif;
+
+      font-size: 23px;
+
+      font-weight: 800;
+    }
+
+    .method-intro p {
+      margin: 0;
+
+      max-width: 900px;
+
+      color: rgba(255,255,255,.68);
+
+      font-size: 14.5px;
+
+      line-height: 1.75;
+    }
+
+
+    /* =========================================================
+       METHOD IMAGES
+    ========================================================= */
+
+    .method-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 22px;
+    }
+
+    .method-card {
+      position: relative;
+
+      overflow: hidden;
+
+      min-height: 260px;
+
+      border: 1px solid var(--line);
+
+      border-radius: 18px;
+
+      background: #fff;
+
+      box-shadow:
+        0 4px 18px rgba(18,34,54,.05);
+
+      transition:
+        transform .35s ease,
+        box-shadow .35s ease;
+    }
+
+    .method-card:hover {
+      transform: translateY(-6px);
+
+      box-shadow:
+        0 20px 38px rgba(18,34,54,.13);
+    }
+
+    .method-image {
+      display: block;
+
+      width: 100%;
+      height: 100%;
+
+      min-height: 260px;
+
+      object-fit: cover;
+
+      transition:
+        transform .7s ease;
+    }
+
+    .method-card:hover .method-image {
+      transform: scale(1.04);
+    }
+
+    .method-overlay {
+      position: absolute;
+      inset: auto 0 0 0;
+
+      padding: 50px 22px 20px;
+
+      background:
+        linear-gradient(
+          180deg,
+          transparent,
+          rgba(18,34,54,.88)
+        );
+    }
+
+    .method-overlay h3 {
+      margin: 0;
+
+      color: #fff;
+
+      font-family: 'Plus Jakarta Sans', sans-serif;
+
+      font-size: 17px;
+
+      font-weight: 700;
+    }
+
+    .method-overlay p {
+      margin: 7px 0 0;
+
+      color: rgba(255,255,255,.72);
+
+      font-size: 12.5px;
+
+      line-height: 1.5;
+    }
+
+
+    /* =========================================================
+       POWER BI SECTION
+    ========================================================= */
+
+    #powerbi {
+      max-width: 1400px;
+
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    .powerbi-section {
+      position: relative;
+
+      overflow: hidden;
+
+      padding: 22px;
+
+      border-radius: 20px;
+
+      background: var(--navy-800);
+
+      box-shadow:
+        0 20px 60px rgba(18,34,54,.14);
+    }
+
+    .powerbi-section::before {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      background:
+        radial-gradient(
+          600px 300px at 5% 0%,
+          rgba(111,24,30,.30),
+          transparent 65%
+        ),
+
+        radial-gradient(
+          600px 300px at 95% 100%,
+          rgba(53,153,86,.24),
+          transparent 65%
+        );
+    }
+
+    .powerbi-header {
+      position: relative;
+
+      z-index: 2;
+
+      display: flex;
+
+      align-items: flex-end;
+      justify-content: space-between;
+
+      gap: 25px;
+
+      margin-bottom: 18px;
+
+      padding: 4px 8px;
+    }
+
+    .powerbi-header h2 {
+      margin: 0;
+
+      color: #fff;
+
+      font-family: 'Plus Jakarta Sans', sans-serif;
+
+      font-size: 25px;
+
+      font-weight: 800;
+    }
+
+    .powerbi-header p {
+      max-width: 600px;
+
+      margin: 8px 0 0;
+
+      color: rgba(255,255,255,.58);
+
+      font-size: 13.5px;
+
+      line-height: 1.6;
+    }
+
+
+    /* =========================================================
+       POWER BI FRAME
+    ========================================================= */
+
+    .powerbi-frame {
+      position: relative;
+
+      z-index: 2;
+
+      overflow: hidden;
+
+      border-radius: 12px;
+
+      background: #fff;
+
+      box-shadow:
+        0 25px 60px rgba(0,0,0,.28);
+    }
+
+    .powerbi-toolbar {
+      display: flex;
+      align-items: center;
+
+      gap: 8px;
+
+      height: 42px;
+
+      padding: 7px 12px;
+
+      background: #F1ECE4;
+
+      border-bottom: 1px solid var(--line);
+    }
+
+    .toolbar-dot {
+      width: 8px;
+      height: 8px;
+
+      border-radius: 50%;
+
+      background: #D9CDBA;
+    }
+
+    .toolbar-title {
+      margin-left: 7px;
+
+      color: #9A9082;
+
+      font-family: 'IBM Plex Mono', monospace;
+
+      font-size: 10.5px;
+    }
+
+    .toolbar-spacer {
+      flex: 1;
+    }
+
+    .fullscreen-button {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+
+      padding: 6px 11px;
+
+      border: 1px solid var(--line);
+
+      border-radius: 7px;
+
+      background: transparent;
+
+      color: #7A7062;
+
+      font-family: 'IBM Plex Mono', monospace;
+
+      font-size: 10.5px;
+      font-weight: 600;
+
+      cursor: pointer;
+
+      transition:
+        color .2s ease,
+        border-color .2s ease,
+        background .2s ease;
+    }
+
+    .fullscreen-button:hover {
+      color: var(--wine);
+
+      border-color: var(--wine);
+
+      background: rgba(111,24,30,.04);
+    }
+
+
+    /* =========================================================
+       POWER BI EMBED
+    ========================================================= */
+
+    .powerbi-embed {
+      position: relative;
+
+      width: 100%;
+
+      aspect-ratio: 16 / 9;
+
+      min-height: 600px;
+
+      background: #F1ECE4;
+    }
+
+    .powerbi-embed iframe {
+      position: absolute;
+
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
+
+      border: 0;
+    }
+
+
+    /* =========================================================
+       POWER BI LOADING
+    ========================================================= */
+
+    .powerbi-loading {
+      position: absolute;
+
+      inset: 0;
+
+      z-index: 5;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background:
+        linear-gradient(
+          135deg,
+          #F7F3EC,
+          #EFE9DE
+        );
+
+      transition:
+        opacity .4s ease;
+    }
+
+    .powerbi-loading.hidden {
+      opacity: 0;
+
+      pointer-events: none;
+    }
+
+    .loading-content {
+      text-align: center;
+    }
+
+    .loading-spinner {
+      width: 36px;
+      height: 36px;
+
+      margin: 0 auto 15px;
+
+      border: 3px solid #DED7CC;
+
+      border-top-color: var(--green);
+
+      border-radius: 50%;
+
+      animation:
+        spinner .8s linear infinite;
+    }
+
+    @keyframes spinner {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .loading-content span {
+      color: #8B8175;
+
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+
+    footer {
+      background: var(--navy-900);
+
+      color: rgba(255,255,255,.45);
+    }
+
+    .footer-inner {
+      width: 100%;
+      max-width: 1180px;
+
+      margin: 0 auto;
+
+      padding: 28px 32px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 15px;
+
+      flex-wrap: wrap;
+
+      font-size: 12px;
+    }
+
+
+    /* =========================================================
+       REVEAL ANIMATION
+    ========================================================= */
+
+    .reveal {
+      opacity: 0;
+
+      transform: translateY(25px);
+
+      transition:
+        opacity .7s cubic-bezier(.16,.8,.24,1),
+        transform .7s cubic-bezier(.16,.8,.24,1);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+
+      transform: translateY(0);
+    }
+
+
+    /* =========================================================
+       HERO ANIMATION
+    ========================================================= */
+
+    .hero-inner > * {
+      opacity: 0;
+
+      transform: translateY(20px);
+
+      animation:
+        heroIn .75s cubic-bezier(.16,.8,.24,1)
+        forwards;
+    }
+
+    .hero-inner > *:nth-child(1) {
+      animation-delay: .05s;
+    }
+
+    .hero-inner > *:nth-child(2) {
+      animation-delay: .15s;
+    }
+
+    .hero-inner > *:nth-child(3) {
+      animation-delay: .25s;
+    }
+
+    .hero-inner > *:nth-child(4) {
+      animation-delay: .35s;
+    }
+
+    @keyframes heroIn {
+      to {
+        opacity: 1;
+
+        transform: translateY(0);
+      }
+    }
+
+
+    /* =========================================================
+       RESPONSIVE TABLET
+    ========================================================= */
+
+    @media (max-width: 900px) {
+
+      .method-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .method-card:last-child {
+        grid-column: 1 / -1;
+      }
+
+      .powerbi-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+      }
+
+    }
+
+
+    /* =========================================================
+       RESPONSIVE MOBILE
+    ========================================================= */
+
+    @media (max-width: 760px) {
+
+      header {
+        height: 76px;
+      }
+
+      .header-inner {
+        padding: 0 20px;
+      }
+
+      .brand-logo {
+        height: 42px;
+      }
+
+      nav.tabs {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .hero {
+        min-height: 560px;
+      }
+
+      .hero-inner {
+        padding: 70px 22px;
+      }
+
+      .hero h1 {
+        font-size: clamp(
+          32px,
+          10vw,
+          46px
+        );
+      }
+
+      .hero-sub {
+        font-size: 14.5px;
+      }
+
+      .hero-ctas {
+        flex-direction: column;
+
+        align-items: stretch;
+      }
+
+      .btn {
+        justify-content: space-between;
+
+        width: 100%;
+      }
+
+      section {
+        padding: 65px 20px;
+      }
+
+      .method-intro {
+        padding: 28px 24px;
+      }
+
+      .method-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .method-card:last-child {
+        grid-column: auto;
+      }
+
+      .method-card,
+      .method-image {
+        min-height: 230px;
+      }
+
+      #powerbi {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      .powerbi-section {
+        padding: 10px;
+
+        border-radius: 14px;
+      }
+
+      .powerbi-header {
+        padding: 8px 6px;
+
+        margin-bottom: 12px;
+      }
+
+      .powerbi-header h2 {
+        font-size: 21px;
+      }
+
+      .powerbi-embed {
+        aspect-ratio: 16 / 11;
+
+        min-height: 500px;
+      }
+
+      .toolbar-title {
+        display: none;
+      }
+
+      .fullscreen-button span {
+        display: none;
+      }
+
+      .footer-inner {
+        padding: 24px 20px;
+      }
+
+    }
+
+
+    /* =========================================================
+       SMALL MOBILE
+    ========================================================= */
+
+    @media (max-width: 420px) {
+
+      .hero-inner {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      section {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .powerbi-embed {
+        aspect-ratio: 4 / 3;
+
+        min-height: 470px;
+      }
+
+    }
+
+
+    /* =========================================================
+       ACCESSIBILITY
+    ========================================================= */
+
+    @media (prefers-reduced-motion: reduce) {
+
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+
+        transform: none;
+      }
+
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+  <!-- =========================================================
+       BARRA DE PROGRESO
+  ========================================================= -->
+
+  <div
+    class="scroll-progress"
+    id="scrollProgress">
+  </div>
+
+
+  <!-- =========================================================
+       HEADER
+  ========================================================= -->
+
+  <header id="mainHeader">
+
+    <div class="header-inner">
+
+      <a
+        href="#inicio"
+        class="brand"
+        aria-label="Inicio">
+
+        <!--
+          IMPORTANTE:
+          Mantiene la ruta de tu plantilla original.
+        -->
+
+        <img
+          src="assets/logos/logo-CSJ-servidor a servidor.png"
+          alt="Rama Judicial"
+          class="brand-logo"
+        >
+
+      </a>
+
+
+      <nav
+        class="tabs"
+        aria-label="Navegación principal">
+
+        <a
+          href="#metodologia"
+          class="active"
+          data-section="metodologia">
+          Metodología
+        </a>
+
+        <a
+          href="#powerbi"
+          data-section="powerbi">
+          Power BI
+        </a>
+
+      </nav>
+
+
+      <!-- Menú móvil -->
+
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        type="button"
+        aria-label="Abrir menú"
+        aria-expanded="false">
+
+        <svg
+          width="19"
+          height="19"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round">
+
+          <line
+            x1="3"
+            y1="6"
+            x2="21"
+            y2="6">
+          </line>
+
+          <line
+            x1="3"
+            y1="12"
+            x2="21"
+            y2="12">
+          </line>
+
+          <line
+            x1="3"
+            y1="18"
+            x2="21"
+            y2="18">
+          </line>
+
+        </svg>
+
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- =========================================================
+       MENÚ MÓVIL
+  ========================================================= -->
+
+  <div
+    class="mobile-menu"
+    id="mobileMenu">
+
+    <div class="mobile-menu-content">
+
+      <a href="#metodologia">
+        Metodología
+      </a>
+
+      <a href="#powerbi">
+        Power BI
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================================
+       HERO
+  ========================================================= -->
+
+  <main id="inicio">
+
+    <section class="hero">
+
+      <div class="hero-inner">
+
+        <div class="eyebrow">
+
+          <span class="eyebrow-arrow">
+            →
+          </span>
+
+          Panel institucional
+
+        </div>
+
+
+        <h1>
+          Metodología y visualización de resultados
+        </h1>
+
+
+        <p class="hero-sub">
+
+          Espacio institucional para consultar la metodología
+          utilizada y acceder al tablero de Power BI con la
+          información consolidada para el análisis y seguimiento.
+
+        </p>
+
+
+        <div class="hero-ctas">
+
+          <a
+            href="#metodologia"
+            class="btn btn-solid">
+
+            <span>
+              Conocer metodología
+            </span>
+
+            <span class="btn-arrow-circle">
+
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+
+                <line
+                  x1="5"
+                  y1="12"
+                  x2="19"
+                  y2="12">
+                </line>
+
+                <polyline
+                  points="12 5 19 12 12 19">
+                </polyline>
+
+              </svg>
+
+            </span>
+
+          </a>
+
+
+          <a
+            href="#powerbi"
+            class="btn btn-outline">
+
+            <span>
+              Ver Power BI
+            </span>
+
+            <span class="btn-arrow-circle">
+
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+
+                <line
+                  x1="5"
+                  y1="12"
+                  x2="19"
+                  y2="12">
+                </line>
+
+                <polyline
+                  points="12 5 19 12 12 19">
+                </polyline>
+
+              </svg>
+
+            </span>
+
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         METODOLOGÍA
+    ======================================================= -->
+
+    <section id="metodologia">
+
+      <div class="section-header reveal">
+
+        <span class="section-label">
+          Metodología
+        </span>
+
+        <h2>
+          Metodología
+        </h2>
+
+        <p>
+          En esta sección se presenta de manera resumida
+          la metodología utilizada para estructurar,
+          consolidar y analizar la información.
+        </p>
+
+      </div>
+
+
+      <!-- INTRODUCCIÓN -->
+
+      <div class="method-intro reveal">
+
+        <div class="method-intro-content">
+
+          <h3>
+            Enfoque metodológico
+          </h3>
+
+          <p>
+            Este espacio está destinado a explicar los
+            principales componentes metodológicos, criterios
+            de análisis y etapas utilizadas para la generación
+            de la información presentada en el tablero.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- =====================================================
+           IMÁGENES DE METODOLOGÍA
+
+           CAMBIA LAS RUTAS DE ESTAS IMÁGENES POR LAS TUYAS
+      ====================================================== -->
+
+      <div class="method-grid">
+
+
+        <!-- IMAGEN 1 -->
+
+        <article class="method-card reveal">
+
+          <img
+            src="assets/images/metodologia-01.png"
+            alt="Etapa 1 de la metodología"
+            class="method-image"
+          >
+
+          <div class="method-overlay">
+
+            <h3>
+              Etapa 01
+            </h3>
+
+            <p>
+              Descripción de la primera etapa metodológica.
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <!-- IMAGEN 2 -->
+
+        <article class="method-card reveal">
+
+          <img
+            src="assets/images/metodologia-02.png"
+            alt="Etapa 2 de la metodología"
+            class="method-image"
+          >
+
+          <div class="method-overlay">
+
+            <h3>
+              Etapa 02
+            </h3>
+
+            <p>
+              Descripción de la segunda etapa metodológica.
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <!-- IMAGEN 3 -->
+
+        <article class="method-card reveal">
+
+          <img
+            src="assets/images/metodologia-03.png"
+            alt="Etapa 3 de la metodología"
+            class="method-image"
+          >
+
+          <div class="method-overlay">
+
+            <h3>
+              Etapa 03
+            </h3>
+
+            <p>
+              Descripción de la tercera etapa metodológica.
+            </p>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         POWER BI
+    ======================================================= -->
+
+    <section id="powerbi">
+
+      <div class="powerbi-section reveal">
+
+
+        <div class="powerbi-header">
+
+          <div>
+
+            <h2>
+              Dashboard Power BI
+            </h2>
+
+            <p>
+              Visualización interactiva de la información
+              consolidada para consulta, análisis y seguimiento.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="powerbi-frame">
+
+
+          <!-- BARRA SUPERIOR -->
+
+          <div class="powerbi-toolbar">
+
+            <span class="toolbar-dot"></span>
+            <span class="toolbar-dot"></span>
+            <span class="toolbar-dot"></span>
+
+            <span class="toolbar-title">
+              Dashboard institucional · Power BI
+            </span>
+
+            <span class="toolbar-spacer"></span>
+
+
+            <button
+              type="button"
+              class="fullscreen-button"
+              id="fullscreenButton">
+
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round">
+
+                <polyline
+                  points="8 3 3 3 3 8">
+                </polyline>
+
+                <polyline
+                  points="16 3 21 3 21 8">
+                </polyline>
+
+                <polyline
+                  points="21 16 21 21 16 21">
+                </polyline>
+
+                <polyline
+                  points="3 16 3 21 8 21">
+                </polyline>
+
+              </svg>
+
+              <span>
+                Pantalla completa
+              </span>
+
+            </button>
+
+          </div>
+
+
+          <!-- =================================================
+               CONTENEDOR POWER BI
+          ================================================== -->
+
+          <div
+            class="powerbi-embed"
+            id="powerbiContainer">
+
+
+            <!--
+              PANTALLA DE CARGA
+            -->
+
+            <div
+              class="powerbi-loading"
+              id="powerbiLoading">
+
+              <div class="loading-content">
+
+                <div class="loading-spinner"></div>
+
+                <span>
+                  Cargando Power BI...
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 POWER BI IFRAME
+
+                 IMPORTANTE:
+
+                 REEMPLAZA EL src POR TU ENLACE DE POWER BI.
+
+                 Ejemplo:
+
+                 src="https://app.powerbi.com/view?r=XXXXXXXX"
+
+            ================================================== -->
+
+            <iframe
+              id="powerbiIframe"
+
+              src="https://app.powerbi.com/view?r=REEMPLAZAR_CON_TU_ENLACE"
+
+              title="Dashboard Power BI"
+
+              allowfullscreen
+
+              loading="lazy">
+            </iframe>
+
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================================================
+       FOOTER
+  ========================================================= -->
+
+  <footer>
+
+    <div class="footer-inner">
+
+      <span>
+        Seguridad y Salud en el Trabajo
+      </span>
+
+      <span>
+        Panel institucional
+      </span>
+
+    </div>
+
+  </footer>
+
+
+  <!-- =========================================================
+       JAVASCRIPT
+  ========================================================= -->
+
+  <script>
+
+    /* =========================================================
+       HEADER AL HACER SCROLL
+    ========================================================= */
+
+    const header =
+      document.getElementById('mainHeader');
+
+    const scrollProgress =
+      document.getElementById('scrollProgress');
+
+
+    function updateScroll() {
+
+      const scrollTop =
+        window.scrollY;
+
+      /* Header */
+
+      if (scrollTop > 30) {
+
+        header.classList.add('is-scrolled');
+
+      } else {
+
+        header.classList.remove('is-scrolled');
+
+      }
+
+
+      /* Barra de progreso */
+
+      const documentHeight =
+        document.documentElement.scrollHeight -
+        window.innerHeight;
+
+      const progress =
+        documentHeight > 0
+          ? (scrollTop / documentHeight) * 100
+          : 0;
+
+      scrollProgress.style.width =
+        progress + '%';
+
+    }
+
+
+    window.addEventListener(
+      'scroll',
+      updateScroll,
+      { passive: true }
+    );
+
+    updateScroll();
+
+
+    /* =========================================================
+       REVEAL AL HACER SCROLL
+    ========================================================= */
+
+    const revealElements =
+      document.querySelectorAll('.reveal');
+
+
+    const revealObserver =
+      new IntersectionObserver(
+
+        (entries) => {
+
+          entries.forEach((entry) => {
+
+            if (entry.isIntersecting) {
+
+              entry.target.classList.add(
+                'is-visible'
+              );
+
+              revealObserver.unobserve(
+                entry.target
+              );
+
+            }
+
+          });
+
+        },
+
+        {
+          threshold: 0.12
+        }
+
+      );
+
+
+    revealElements.forEach(
+      (element) => {
+
+        revealObserver.observe(element);
+
+      }
+    );
+
+
+    /* =========================================================
+       NAVEGACIÓN ACTIVA
+    ========================================================= */
+
+    const sections =
+      document.querySelectorAll(
+        '#metodologia, #powerbi'
+      );
+
+    const navLinks =
+      document.querySelectorAll(
+        'nav.tabs a'
+      );
+
+
+    const sectionObserver =
+      new IntersectionObserver(
+
+        (entries) => {
+
+          entries.forEach((entry) => {
+
+            if (!entry.isIntersecting) {
+              return;
+            }
+
+
+            const id =
+              entry.target.id;
+
+
+            navLinks.forEach((link) => {
+
+              link.classList.toggle(
+                'active',
+                link.dataset.section === id
+              );
+
+            });
+
+          });
+
+        },
+
+        {
+          rootMargin:
+            '-35% 0px -55% 0px',
+
+          threshold: 0
+        }
+
+      );
+
+
+    sections.forEach(
+      (section) => {
+
+        sectionObserver.observe(section);
+
+      }
+    );
+
+
+    /* =========================================================
+       POWER BI — OCULTAR LOADING
+    ========================================================= */
+
+    const powerbiIframe =
+      document.getElementById(
+        'powerbiIframe'
+      );
+
+    const powerbiLoading =
+      document.getElementById(
+        'powerbiLoading'
+      );
+
+
+    powerbiIframe.addEventListener(
+      'load',
+      () => {
+
+        setTimeout(() => {
+
+          powerbiLoading.classList.add(
+            'hidden'
+          );
+
+        }, 500);
+
+      }
+    );
+
+
+    /* =========================================================
+       PANTALLA COMPLETA POWER BI
+    ========================================================= */
+
+    const fullscreenButton =
+      document.getElementById(
+        'fullscreenButton'
+      );
+
+    const powerbiContainer =
+      document.getElementById(
+        'powerbiContainer'
+      );
+
+
+    fullscreenButton.addEventListener(
+      'click',
+      async () => {
+
+        try {
+
+          if (
+            document.fullscreenElement
+          ) {
+
+            await document.exitFullscreen();
+
+          } else {
+
+            await powerbiContainer.requestFullscreen();
+
+          }
+
+        } catch (error) {
+
+          console.error(
+            'No fue posible activar pantalla completa:',
+            error
+          );
+
+        }
+
+      }
+    );
+
+
+    /* =========================================================
+       MENÚ MÓVIL
+    ========================================================= */
+
+    const menuToggle =
+      document.getElementById(
+        'menuToggle'
+      );
+
+    const mobileMenu =
+      document.getElementById(
+        'mobileMenu'
+      );
+
+
+    menuToggle.addEventListener(
+      'click',
+      () => {
+
+        const isOpen =
+          mobileMenu.classList.toggle(
+            'open'
+          );
+
+        menuToggle.setAttribute(
+          'aria-expanded',
+          isOpen
+        );
+
+      }
+    );
+
+
+    /* Cerrar menú cuando se selecciona
+       una opción */
+
+    const mobileLinks =
+      mobileMenu.querySelectorAll('a');
+
+
+    mobileLinks.forEach((link) => {
+
+      link.addEventListener(
+        'click',
+        () => {
+
+          mobileMenu.classList.remove(
+            'open'
+          );
+
+          menuToggle.setAttribute(
+            'aria-expanded',
+            'false'
+          );
+
+        }
+      );
+
+    });
+
+
+  </script>
+
+
+  <!-- =========================================================
+       ESTILOS DEL MENÚ MÓVIL
+  ========================================================= -->
+
+  <style>
+
+    .mobile-menu {
+      display: none;
+
+      position: fixed;
+
+      top: 76px;
+      left: 0;
+      right: 0;
+
+      z-index: 90;
+
+      padding: 12px 18px 18px;
+
+      background: rgba(18,34,54,.97);
+
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+
+      border-top: 1px solid rgba(255,255,255,.08);
+
+      box-shadow:
+        0 15px 30px rgba(0,0,0,.20);
+    }
+
+    .mobile-menu.open {
+      display: block;
+    }
+
+    .mobile-menu-content {
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 5px;
+    }
+
+    .mobile-menu-content a {
+      padding: 15px 14px;
+
+      border-radius: 9px;
+
+      color: rgba(255,255,255,.80);
+
+      font-size: 15px;
+      font-weight: 600;
+
+      transition:
+        background .2s ease,
+        color .2s ease;
+    }
+
+    .mobile-menu-content a:hover {
+      background: rgba(255,255,255,.08);
+
+      color: #fff;
+    }
+
+  </style>
+
+</body>
+
+</html>
